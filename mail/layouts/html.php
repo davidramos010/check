@@ -10,7 +10,7 @@ use yii\helpers\Html;
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=<?= Yii::$app->charset ?>" />
-    <title>AdminKey::<?= Html::encode($this->title) ?></title>
+    <title>IpCheck::<?= Html::encode($this->title) ?></title>
     <style type="text/css">
         .login-logo, .register-logo {
             font-size: 2.1rem;

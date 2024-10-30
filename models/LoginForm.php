@@ -17,7 +17,7 @@ class LoginForm extends Model
     public $password;
     public $authkey;
     public $rememberMe = true;
-    public $perfil = 2;
+    public $perfil = 1;
     private $_user = false;
 
 
@@ -49,24 +49,7 @@ class LoginForm extends Model
                    return validate;
                 }"
             ],
-            [
-                ['authkey'],
-                'required',
-                'when' => function () {
-                    return $this->perfil==2;
-                },
-                'whenClient' => "function (attribute, value) {
-                 var validate = false; 
-                 if(
-                    ($('#loginform-perfil').val()=='2' || $('#loginform-perfil').val()==2) &&
-                     $('#authkey').val()==''
-                   )
-                   {
-                     validate = true;
-                   }
-                   return validate;
-                }"
-            ],
+
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
@@ -115,15 +98,9 @@ class LoginForm extends Model
      */
     public function login()
     {
-        if (!empty($this->authkey) && (int)$this->perfil == 2) {
-            $this->username = null;
-            $this->password = null;
-            $this->getAuthKey();
-        } else {
-            $this->authkey = null;
-            if (!empty($this->password)) {
-                $this->password = util::hash($this->password);
-            }
+        $this->authkey = null;
+        if (!empty($this->password)) {
+            $this->password = util::hash($this->password);
         }
 
         if ($this->validate() && !empty($this->getUser())) {
@@ -142,11 +119,10 @@ class LoginForm extends Model
      */
     public function getUser()
     {
-        if ($this->_user === false) {
-            $this->_user = User::findByUsername($this->username);
-            if(isset($this->_user->userInfo) && $this->_user->userInfo->estado == 0){
-                $this->_user = false;
-            }
+        $this->_user = User::findByUsername(strtoupper($this->username));
+        if (isset($this->_user->userInfo) && $this->_user->userInfo->estado == 0) {
+
+            $this->_user = false;
         }
         return $this->_user;
     }
@@ -157,18 +133,17 @@ class LoginForm extends Model
     public function getAuthKey()
     {
         $objUserPerfil = null;
-        if (!empty($this->authkey)) {
-            $objUser = User::find()->where(['authkey'=> $this->authkey ])->one();
-            if(!empty($objUser)){
-                $objUserPerfil = PerfilesUsuario::find()->where(['id_user'=>$objUser->id])->andWhere(['in','id_perfil',[2,3]])->one();
-                $objUserInfo = UserInfo::find()->where(['id_user'=>$objUser->id,'estado'=>1])->one();
-                if(!empty($objUserPerfil) && !empty($objUserInfo)){
-                    $this->_user = false;
-                    $this->username = (!empty($objUser))?$objUser->username:null;
-                    $this->password = (!empty($objUser))?$objUser->password:null;
-                }
+        $objUser = User::find()->where(['authkey' => $this->authkey])->one();
+        if (!empty($objUser)) {
+            $objUserPerfil = PerfilesUsuario::find()->where(['id_user' => $objUser->id])->andWhere(['in', 'id_perfil', [2, 3]])->one();
+            $objUserInfo = UserInfo::find()->where(['id_user' => $objUser->id, 'estado' => 1])->one();
+            if (!empty($objUserPerfil) && !empty($objUserInfo)) {
+                $this->_user = false;
+                $this->username = (!empty($objUser)) ? $objUser->username : null;
+                $this->password = (!empty($objUser)) ? $objUser->password : null;
             }
         }
+
 
         return (!empty($objUserPerfil));
     }

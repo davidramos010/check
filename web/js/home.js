@@ -11,11 +11,3 @@ function fnToogleSeeKey( numDiv ){
         }
     });
 }
-
-function fnVerUser(){
-    $('#divLoginAdmin').hide();
-    $('#divLoginUser').fadeIn('slow');
-    $('#loginform-username').val('');
-    $('#loginform-password').val('');
-    $('#loginform-perfil').val(2);
-}

@@ -23,7 +23,7 @@ $this->registerJsFile($publishedRes[1].'/control_sidebar.js', ['depends' => '\ha
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js" crossorigin="anonymous"></script>
     <?php $this->registerCsrfMetaTags() ?>
-    <title>AdminKey::<?= Html::encode($this->title) ?></title>
+    <title>IpCheck::<?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">

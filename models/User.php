@@ -65,26 +65,11 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['username', 'idPerfil'], 'required', 'message'=> Yii::t('yii',  '{attribute} no es valido')],
+            [['username', 'idPerfil','password'], 'required', 'message'=> Yii::t('yii',  '{attribute} no es valido')],
             [['name','username', 'password', 'authKey', 'accessToken','password_new','authKey_new'], 'string', 'max' => 255],
             [['password_new'], 'string', 'min' => 6, 'max' => 255,'message' => 'Debe tener más de 6 caracteres.','tooLong'=>'El campo no debe tener mas de 250 caracteres','tooShort'=>'El campo debe tener minimo 6 caracteres'],
             [['authKey_new'], 'string', 'min' => 6, 'max' => 255,'message' => 'Debe tener más de 6 caracteres.','tooLong'=>'El campo no debe tener mas de 250 caracteres','tooShort'=>'El campo debe tener minimo 6 caracteres'],
-            [['password'], 'required', 'when' => function($model) {
-                return $model->idPerfil==self::NUM_PERFIL_ADMINISTRADOR ;
-            },'whenClient' => "function (attribute, value) {
-                if($('#password').val()=='')
-                  $('#password').val($('#password_new').val());
-                  
-                return ($('#idPerfil').val()==1 && $('#password').val() != '');
-            }"],
-            [['authKey'], 'required', 'when' => function($model) {
-                return ($model->idPerfil==self::NUM_PERFIL_GESTOR || $model->idPerfil==self::NUM_PERFIL_GESTOR_ESPECIAL) ;
-            },'whenClient' => "function (attribute, value) {
-                if($('#authKey').val()=='')
-                  $('#authKey').val($('#authKey_new').val());  
-                 
-                return ($('#idPerfil').val()==2 && $('#authKey').val() != '');
-            }"],
+
             [['idPerfil'], 'integer'],
             [['username'], 'unique'],
         ];
