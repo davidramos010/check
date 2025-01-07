@@ -8,7 +8,7 @@ $this->title = Yii::t('app','Actualizar - Eliminar Movimiento');
 $this->params['breadcrumbs'][] = ['label' => 'Registros', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
-$this->registerJsFile('@web/js/registro.js');
+$this->registerJsFile('@web/js/conexion.js');
 ?>
 <div class="registro-update">
 

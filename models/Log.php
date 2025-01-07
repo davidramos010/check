@@ -22,6 +22,11 @@ use yii\db\ActiveRecord;
  */
 class Log extends ActiveRecord
 {
+    public $tipo_id;
+    public $nombre;
+    public $conexion_nombre;
+    public $tipo_nombre;
+    public $username;
     /**
      * {@inheritdoc}
      */

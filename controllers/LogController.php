@@ -36,7 +36,7 @@ class LogController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
+    public function actionIndex(): string
     {
         $searchModel = new LogSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);

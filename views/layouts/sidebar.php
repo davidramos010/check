@@ -41,6 +41,7 @@ $strUserName = (!empty(Yii::$app->user) && isset(Yii::$app->user) && isset(Yii::
                         ],
                         'visible' => ((int)Yii::$app->user->identity->perfiluser->id_perfil == 1)
                     ],
+                    ['label' => Yii::t('app', 'MisConexiones'), 'icon' => 'fa-solid fa-key', 'url' => ['conexion/index']],
                     [
                         'label' => Yii::t('app', 'Reportes'),
                         'icon' => 'fa-solid fa-file-excel',
@@ -48,7 +49,6 @@ $strUserName = (!empty(Yii::$app->user) && isset(Yii::$app->user) && isset(Yii::
                             ['label' => Yii::t('app', 'Log'), 'url' => ['log/index'], 'iconStyle' => 'far'],
                         ],
                     ],
-                    ['label' => Yii::t('app', 'MisConexiones'), 'icon' => 'fa-solid fa-key', 'url' => ['conexion/index']],
                     ['label' => 'Login', 'url' => ['site/login'], 'icon' => 'sign-in-alt', 'visible' => Yii::$app->user->isGuest],
                     ['label' => 'Gii', 'icon' => 'file-code', 'url' => ['/gii'], 'target' => '_blank', 'visible' => YII_ENV_DEV],
                     ['label' => 'Debug', 'icon' => 'bug', 'url' => ['/debug'], 'target' => '_blank', 'visible' => YII_DEBUG],

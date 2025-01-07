@@ -5,16 +5,23 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var app\models\Tipo $model */
 
-$this->title = Yii::t('app', 'Create Tipo');
+$this->title = Yii::t('app', 'Nuevo Tipo');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Tipos'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="tipo-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
-
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <?= $this->render('_form', [
+                        'model' => $model,
+                    ]) ?>
+                </div>
+            </div>
+        </div>
+        <!--.card-body-->
+    </div>
+    <!--.card-->
 </div>

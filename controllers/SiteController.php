@@ -4,6 +4,7 @@ namespace app\controllers;
 use app\commands\LoadController;
 use app\models\Comerciales;
 use app\models\Comunidad;
+use app\models\Conexion;
 use app\models\Llave;
 use app\models\LlaveStatus;
 use app\models\LlaveStatusSearch;
@@ -88,8 +89,7 @@ class SiteController extends BaseController
         // --------------------------------
         // Parametros para usuarios que ya iniciaron sesion
         if (Yii::$app->user->identity) {
-            // Cantidad de llave y llaves prestadas
-            //$arrParam = ['params'=>Llave::getDataHome()];
+            $arrParam = ['params'=>  Conexion::getLogLast()];
         }
 
         return $this->render($strActionForm,$arrParam);
@@ -144,10 +144,7 @@ class SiteController extends BaseController
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             $objPerfil = PerfilesUsuario::find()->where(['id_user' => Yii::$app->user->identity->id])->one();
             if (!empty($objPerfil)) {
-
-                    return $this->goHome();
-
-
+                return $this->goHome();
             }
         }
 

@@ -32,8 +32,6 @@ class PerfilesUsuario extends \yii\db\ActiveRecord
         return [
             [['id_perfil', 'id_user'], 'required'],
             [['id_perfil', 'id_user'], 'integer'],
-            /*[['id_perfil'], 'exist', 'skipOnError' => true, 'targetClass' => Perfile::className(), 'targetAttribute' => ['id_perfil' => 'id']],
-            [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id_user' => 'id']],*/
         ];
     }
 

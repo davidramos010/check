@@ -17,8 +17,8 @@ class LogSearch extends Log
     public function rules(): array
     {
         return [
-            [['id', 'conexion_id', 'user_id', 'codigo'], 'integer'],
-            [['peticion', 'respuesta', 'created_at'], 'safe'],
+            [['id', 'conexion_id', 'user_id', 'codigo','tipo_id'], 'integer'],
+            [['peticion', 'respuesta', 'created_at','nombre'], 'safe'],
         ];
     }
 
@@ -40,10 +40,9 @@ class LogSearch extends Log
      */
     public function search($params): ActiveDataProvider
     {
-        $query = Log::find();
-
+        $query = Log::find()->alias('l');
+        $query->addSelect("l.*,cn.tipo_id,cn.nombre");
         // add conditions that should always apply here
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -55,6 +54,7 @@ class LogSearch extends Log
             // $query->where('0=1');
             return $dataProvider;
         }
+        $query->leftJoin('conexion cn', 'cn.id = l.conexion_id');
 
         // grid filtering conditions
         $query->andFilterWhere([
@@ -64,6 +64,14 @@ class LogSearch extends Log
             'codigo' => $this->codigo,
             'created_at' => $this->created_at,
         ]);
+
+        if(!empty($this->tipo_id)){
+         $query->andFilterWhere(['cn.tipo_id' => $this->tipo_id]);
+        }
+
+        if(!empty($this->nombre)){
+            $query->andFilterWhere(['like','cn.nombre', $this->nombre]);
+        }
 
         $query->andFilterWhere(['like', 'peticion', $this->peticion])
             ->andFilterWhere(['like', 'respuesta', $this->respuesta]);

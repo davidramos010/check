@@ -1,19 +1,17 @@
 <?php
 
 use app\models\User;
-use hail812\adminlte3\yii\grid\ActionColumn;
 use kartik\export\ExportMenu;
 use yii\helpers\Html;
 use kartik\grid\GridView;
-use kartik\icons\Icon;
 use kartik\widgets\Select2;
-use yii\helpers\Url;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Usuarios';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="container-fluid">

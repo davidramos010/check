@@ -145,6 +145,34 @@ if (YII_ENV_DEV) {
             'downloadAction' => 'gridview/export/download',
             // other module settings
         ];
+
+    /*$config['modules']['health'] = [
+        // Comprueba todas las conexiones a base de datos y paths inicializados
+        'applicationName' => 'intranetfe',
+        'class' => 'app\modules\health\Module',
+        'checks' => array_merge(
+            array_map(
+            // aqui comprobamos todos los paths de documentos y ficheros
+                fn($paths) => [$paths => 'app\modules\health\checks\ApisCheck'], array_keys($apis)
+            ),
+            array_merge(
+                array_map(
+                // aqui comprobamos todos los paths de documentos y ficheros
+                    fn($paths) => [$paths => 'app\modules\health\checks\FilesystemCheck'], array_keys($paths)
+                ),
+                array_map(
+                // aqui cargamos todas las bases de datos del fichero de configuracion
+                    fn($db_name) => [$db_name => 'app\modules\health\checks\DatabaseCheck'], array_keys($dbs)
+                )
+            )
+        ),
+        'checkArgs' => array_merge(
+            $paths,
+            $dbs,
+            $apis
+        ),
+        'dependencies' => []
+    ];*/
 }
 
 return $config;

@@ -9,7 +9,7 @@ use yii\web\JsExpression;
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 
-$this->registerJsFile('@web/js/registro.js');
+$this->registerJsFile('@web/js/conexion.js');
 $model = new LlaveSearch();
 ?>
 <!-- form start -->

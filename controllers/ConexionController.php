@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Conexion;
 use app\models\ConexionSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -24,7 +25,6 @@ class ConexionController extends Controller
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
-                        'delete' => ['POST'],
                     ],
                 ],
             ]
@@ -48,20 +48,7 @@ class ConexionController extends Controller
     }
 
     /**
-     * Displays a single conexion model.
-     * @param int $id ID
-     * @return string
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-
-    /**
-     * Creates a new conexion model.
+     * Creates a new conexión model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
@@ -70,8 +57,11 @@ class ConexionController extends Controller
         $model = new Conexion();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            $model->load($this->request->post());
+            $model->user_id = Yii::$app->user->id;
+            if ($model->validate() && $model->save()) {
+                Yii::$app->session->setFlash('success', Yii::t('yii', 'Se crea correctamente.'));
+                return $this->redirect(['index']);
             }
         } else {
             $model->loadDefaultValues();
@@ -79,6 +69,22 @@ class ConexionController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+        ]);
+    }
+
+    public function actionCheck(): string
+    {
+
+        $objConexion = new Conexion();
+        $arrHost = $objConexion->getHostCheck();
+        $arrApi = $objConexion->getApiCheck();
+        $arrBd = $objConexion->getDataBaseCheck();
+
+        return $this->render('check', [
+            'arrHost'=>$arrHost,
+            'arrApi'=>$arrApi,
+            'arrBd'=>$arrBd,
+            'model' => $objConexion,
         ]);
     }
 
@@ -94,26 +100,13 @@ class ConexionController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            Yii::$app->session->setFlash('success', Yii::t('yii', 'Se actualiza correctamente.'));
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [
             'model' => $model,
         ]);
-    }
-
-    /**
-     * Deletes an existing conexion model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id ID
-     * @return \yii\web\Response
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
     }
 
     /**

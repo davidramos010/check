@@ -50,7 +50,7 @@ class Tipo extends ActiveRecord
         return [
             'id' => 'ID',
             'nombre' => 'Nombre',
-            'detalle' => 'Detalle',
+            'detalle' => 'Descripción',
             'estado' => 'Estado',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',

@@ -14,7 +14,7 @@ use app\models\util;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Registros';
-$this->registerJsFile('@web/js/registro.js');
+$this->registerJsFile('@web/js/conexion.js');
 
 
 $buttonFiltroPendientes = Html::a('Pendientes ' . (strpos(Url::current(),

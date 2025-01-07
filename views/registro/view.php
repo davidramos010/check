@@ -15,7 +15,7 @@ use yii\widgets\ActiveForm;
 /* @var $bolActiveBotonProcess boolean */
 /* @var $bolActiveBotonUpdate boolean */
 
-$this->registerJsFile('@web/js/registro.js');
+$this->registerJsFile('@web/js/conexion.js');
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Registros', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
